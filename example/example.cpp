@@ -1,4 +1,5 @@
 #include <cstdio>
+#define OPPClientDebug printf
 #include <opp_client.h>
 
 int main(void) {

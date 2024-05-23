@@ -15,7 +15,7 @@
 class OPPClient {
 public:
     OPPClient(struct sp_port *port) {
-        OPPClientDebug("Opening port %s", sp_get_port_name(port));
+        OPPClientDebug("Opening port %s\n", sp_get_port_name(port));
         this->port = port;
         if(sp_open(port, SP_MODE_READ_WRITE) != SP_OK) 
             throw "Failed to open serial port";
@@ -68,18 +68,18 @@ private:
         enum sp_return result = sp_blocking_read(port, data, size, timeout);
         if(result < SP_OK)
             throw "Failed to read data";
-        printf("read ");
+        OPPClientDebug("read ");
         for(int i = 0; i < result; i++)
-            printf("0x%02x ", ((unsigned char*)data)[i]);
-        printf("\n");
+            OPPClientDebug("0x%02x ", ((unsigned char*)data)[i]);
+        OPPClientDebug("\n");
         return (size_t)result;
     }
 
     void write(const void *data, size_t size) {
-        printf("writing ");
+        OPPClientDebug("writing ");
         for(unsigned int i = 0; i < size; i++)
-            printf("0x%02x ", ((unsigned char*)data)[i]);
-        printf("\n");
+            OPPClientDebug("0x%02x ", ((unsigned char*)data)[i]);
+        OPPClientDebug("\n");
         enum sp_return result = sp_blocking_write(port, data, size, timeout);
         if(result < SP_OK)
             throw "Failed to write data";
