@@ -37,10 +37,10 @@ public:
     }
 
     unsigned int get_serial_number() {
-        unsigned char buffer[] = {0x20, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff};
+        unsigned char buffer[] = {0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff};
         send_command(buffer, sizeof(buffer));
         receive_response(buffer, sizeof(buffer));
-        if(buffer[0] != 0x20 || buffer[1] != 0x02)
+        if(buffer[0] != 0x20 || buffer[1] != 0x00)
             throw "invalid response";
         if(calc_crc8(buffer, sizeof(buffer) - 2) != buffer[sizeof(buffer) - 2])
             throw "invalid crc8";
